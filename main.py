@@ -2,7 +2,11 @@
 import re
 
 
-def get_email_format(email: str, name: str):
+def get_email_format(email: str, name: str) -> dict:
+    """
+    Compares email against known list of possible formats, returing the format.
+    Requires a known contact name and email. Returns a dict of the email data with domain, divider character (if present) and format.
+    """
 
     # Check provided email is valid
     EMAIL_REGEX = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)'
@@ -54,12 +58,15 @@ def get_email_format(email: str, name: str):
             return format['email']
 
 
-def fill_emails(names: list, email_format: dict) -> list:
-
+def fill_emails(contact_names: list, email_format: dict) -> list:
+    """
+    Takes a list of contact names (first and last) and an email format. 
+    Returns a list of contacts as dicts with firstname, lastname and email.
+    """
     contacts = []
 
     # split names
-    for name in names:
+    for name in contact_names:
         full_name = name.split()
         name_length = len(full_name)
         if name_length > 2:
@@ -94,11 +101,7 @@ def main(names: list, example_email: str, example_name: str):
     email_format = get_email_format(example_email, example_name)
 
     if email_format:
-        contacts = fill_emails(names=names, email_format=email_format)
+        contacts = fill_emails(contact_names=names, email_format=email_format)
         return contacts
     else:
         return
-
-
-if __name__ == "__main__":
-    main()
