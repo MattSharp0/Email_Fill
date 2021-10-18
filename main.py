@@ -98,3 +98,7 @@ def main(names: list, example_email: str, example_name: str):
         return contacts
     else:
         return
+
+
+if __name__ == "__main__":
+    main()
